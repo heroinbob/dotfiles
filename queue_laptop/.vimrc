@@ -10,31 +10,35 @@ filetype off     " Required for Vundle
 " Vundle Configuration     "
 "===========================
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
-" My Custom Bundles Below....
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
-Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
-Bundle 'lokaltog/vim-easymotion'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'godlygeek/tabular'
-Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'inside/vim-grep-operator'
-Bundle 'ngmy/vim-rubocop'
-Bundle 'chriskempson/base16-vim'
-Bundle 'scrooloose/syntastic'
+" My Custom Plugins Below....
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-endwise'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
+Plugin 'lokaltog/vim-easymotion'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'godlygeek/tabular'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'inside/vim-grep-operator'
+Plugin 'ngmy/vim-rubocop'
+Plugin 'chriskempson/base16-vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'burke/matcher'
+
+call vundle#end()
 
 "===========================
 " Other Settings           "
@@ -147,4 +151,33 @@ if executable('ag')
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
+endif
+
+" Added matcher for better fuzzy search - https://github.com/burke/matcher
+if executable('matcher')
+  let g:ctrlp_match_func = { 'match': 'GoodMatch' }
+
+  function! GoodMatch(items, str, limit, mmode, ispath, crfile, regex)
+
+  " Create a cache file if not yet exists
+  let cachefile = ctrlp#utils#cachedir().'/matcher.cache'
+  if !( filereadable(cachefile) && a:items == readfile(cachefile) )
+    call writefile(a:items, cachefile)
+  endif
+  if !filereadable(cachefile)
+    return []
+  endif
+
+  " a:mmode is currently ignored. In the future, we should probably do
+  " something about that. the matcher behaves like "full-line".
+  let cmd = 'matcher --limit '.a:limit.' --manifest '.cachefile.' '
+  if !( exists('g:ctrlp_dotfiles') && g:ctrlp_dotfiles )
+    let cmd = cmd.'--no-dotfiles '
+  endif
+  let cmd = cmd.a:str
+
+  return split(system(cmd), "\n")
+
+  endfunction
 endif
