@@ -6,6 +6,9 @@ set nocompatible " Use Vim settings, not Vi
 filetype on      " Explicitly turn on to not get an error in OSX before turning off.
 filetype off     " Required for Vundle
 
+" Required for extended % matching!
+runtime macros/matchit.vim
+
 "===========================
 " Vundle Configuration     "
 "===========================
@@ -16,26 +19,31 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " My Custom Plugins Below....
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-endwise'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'rking/ag.vim'
-Plugin 'lokaltog/vim-easymotion'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'godlygeek/tabular'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'inside/vim-grep-operator'
-Plugin 'ngmy/vim-rubocop'
-Plugin 'chriskempson/base16-vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'elixir-lang/vim-elixir'
+Plugin 'vim-ruby/vim-ruby' " For editing and compiling Ruby within Vim
+Plugin 'tpope/vim-rails' " Vim support for navigating, editing and working w/ Rails
+Plugin 'tpope/vim-fugitive' " Git commands wrapper for Vim
+Plugin 'tpope/vim-cucumber' " TODO: Remove
+Plugin 'tpope/vim-dispatch' " TODO: Remove
+Plugin 'tpope/vim-surround' " Change, add, delete surrounding chars
+Plugin 'tpope/vim-endwise' " Automatically add end syntax to if, do, etc.
+Plugin 'scrooloose/nerdtree' " NerdTree!
+Plugin 'kien/ctrlp.vim' " Super fast file finding
+Plugin 'rking/ag.vim' " Super fast file searching
+Plugin 'lokaltog/vim-easymotion' " Targeted content navigation
+Plugin 'janko-m/vim-test' " Vim wrapper for test running (RSpec, Minitest, etc)
+Plugin 'AndrewRadev/splitjoin.vim' " Commands for changing from single to multi line statements
+Plugin 'kchmck/vim-coffee-script' " CoffeeScript support
+Plugin 'inside/vim-grep-operator' " Visual and motion selection for grep
+Plugin 'ngmy/vim-rubocop' " Rubocop support
+Plugin 'chriskempson/base16-vim' " 16 color syntax highlighting themes
+Plugin 'scrooloose/syntastic' " Syntax checking and visual output (warnings, errors, etc)
+Plugin 'elixir-lang/vim-elixir' " Elixir support
+Plugin 'kana/vim-textobj-user' " Create text objects easily (see below for ruby)
+Plugin 'nelstrom/vim-textobj-rubyblock' " Easilly select ruby text blocks
+Plugin 'benekastah/neomake' " Asynchronous :make support, for syntax, rubocop, etc
+Plugin 'christoomey/vim-tmux-runner' " Send commands from vim to tmux
+Plugin 'gabebw/vim-spec-runner' " Run RSpec using an external dispatcher (to vim-tmux-runner)
+Plugin 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 
 call vundle#end()
 
@@ -67,6 +75,8 @@ set relativenumber
 " Show the status bar and set up specific colors
 set laststatus=2
 
+set colorcolumn=80
+
 highlight StatusLine ctermfg=Gray
 highlight LineNr ctermfg=DarkGray
 highlight CursorLineNr ctermbg=DarkGray
@@ -78,27 +88,29 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 " Strip Trailing Whitespace!
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Run neomake after writing.
+autocmd! BufWritePost * Neomake
+
 "===========================
 " Ruby Specific Settings   "
 "===========================
-autocmd FileType ruby compiler ruby
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby let g:rubycomplete_buffer_loading=1
-autocmd FileType ruby let g:rubycomplete_classes_in_global=1
 autocmd FileType ruby set tabstop=2
 autocmd FileType ruby set shiftwidth=2
 autocmd FileType ruby set softtabstop=2
 
+" Use the pached powerline-fonts
+let g:airline_powerline_fonts = 1
 
-"==========="
-" Vim RSpec "
-"==========="
-let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "Dispatch bundle exec spring rspec -I . {spec}"
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+
+" vim-spec-runner
+" Send the command to tmux using vim-tmux-runner
+let g:spec_runner_dispatcher = 'call VtrSendCommand("be {command}")'
+map <leader>t <plug>RunCurrentSpecFile
+map <leader>s <plug>RunFocusedSpec
+map <leader>l <plug>RunMostRecentSpec
+
+" vim-tmux-runner
+let g:VtrClearSequence = "clear\r"
 
 " == Remappings ==
 "
@@ -110,19 +122,6 @@ inoremap <leader>w <C-c>:w<cr>
 noremap <leader>q :q<cr>
 noremap <leader>wq :wq<cr>
 noremap <leader>q! :q!<cr>
-
-" Tabularize Alignments
-noremap <leader>t{ Tabularize /{\zs<CR>
-noremap <leader>t= Tabularize /=\zs<CR>
-noremap <leader>t: Tabularize /:\zs<CR>
-noremap <leader>t, Tabularize /,\zs<CR>
-
-" I like turtles
-set grepprg=git\ grep\ -n\ $*
-nmap <leader>g <Plug>GrepOperatorOnCurrentDirectory
-vmap <leader>g <Plug>GrepOperatorOnCurrentDirectory
-nmap <leader><leader>g <Plug>GrepOperatorWithFilenamePrompt
-vmap <leader><leader>g <Plug>GrepOperatorWithFilenamePrompt
 
 " Switch windows easier
 nmap <leader><Up> <C-w><Up>
@@ -138,6 +137,18 @@ nmap <leader><leader>rgm :!rcop-current-file-vs-master %<CR>
 
 nnoremap <leader>oN :NERDTree<CR>
 nnoremap <leader>cN :NERDTreeClose<CR>
+nnoremap <leader>tN :NERDTreeToggle<CR>
+
+" Open a new terminal pane
+nmap <leader>vt :vsplit \| term<CR>
+nmap <leader>st :split \| term<CR>
+
+" Some search help!
+nmap <F2> :set hlsearch!<CR>
+
+" VimTmuxRunner
+nmap <leader>kr :VtrKillRunner<CR>
+nmap <leader>or :VtrOpenRunner({'orientation': 'h', 'percentage': 30})<CR>
 
 
 " CtrlP
