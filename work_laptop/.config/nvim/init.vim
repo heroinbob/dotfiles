@@ -1,7 +1,6 @@
 "===========================
 " General Settings         "
 "===========================
-
 set nocompatible " Use Vim settings, not Vi
 filetype on      " Explicitly turn on to not get an error in OSX before turning off.
 filetype off     " Required for Vundle
@@ -13,7 +12,7 @@ runtime macros/matchit.vim
 " Vundle Configuration     "
 "===========================
 
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.config/nvim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
@@ -22,8 +21,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-ruby/vim-ruby' " For editing and compiling Ruby within Vim
 Plugin 'tpope/vim-rails' " Vim support for navigating, editing and working w/ Rails
 Plugin 'tpope/vim-fugitive' " Git commands wrapper for Vim
-Plugin 'tpope/vim-cucumber' " TODO: Remove
-Plugin 'tpope/vim-dispatch' " TODO: Remove
 Plugin 'tpope/vim-surround' " Change, add, delete surrounding chars
 Plugin 'tpope/vim-endwise' " Automatically add end syntax to if, do, etc.
 Plugin 'scrooloose/nerdtree' " NerdTree!
@@ -42,7 +39,6 @@ Plugin 'kana/vim-textobj-user' " Create text objects easily (see below for ruby)
 Plugin 'nelstrom/vim-textobj-rubyblock' " Easilly select ruby text blocks
 Plugin 'benekastah/neomake' " Asynchronous :make support, for syntax, rubocop, etc
 Plugin 'christoomey/vim-tmux-runner' " Send commands from vim to tmux
-Plugin 'gabebw/vim-spec-runner' " Run RSpec using an external dispatcher (to vim-tmux-runner)
 Plugin 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 
 call vundle#end()
@@ -54,7 +50,7 @@ set ttyfast
 set t_Co=256
 let base16colorspace=256
 set background=dark
-colorscheme base16-atelierlakeside
+colorscheme base16-atelier-lakeside
 
 syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
@@ -81,6 +77,9 @@ highlight StatusLine ctermfg=Gray
 highlight LineNr ctermfg=DarkGray
 highlight CursorLineNr ctermbg=DarkGray
 
+" Map the leader key to SPACE
+let mapleader=","
+
 autocmd InsertEnter * highlight StatusLine ctermfg=Green
 autocmd InsertLeave * highlight StatusLine ctermfg=Gray
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
@@ -101,16 +100,16 @@ autocmd FileType ruby set softtabstop=2
 " Use the pached powerline-fonts
 let g:airline_powerline_fonts = 1
 
-
-" vim-spec-runner
-" Send the command to tmux using vim-tmux-runner
-let g:spec_runner_dispatcher = 'call VtrSendCommand("be {command}")'
-map <leader>t <plug>RunCurrentSpecFile
-map <leader>s <plug>RunFocusedSpec
-map <leader>l <plug>RunMostRecentSpec
-
 " vim-tmux-runner
 let g:VtrClearSequence = "clear\r"
+
+" vim-test - use vim-tmux-runner as the test strategy
+let test#strategy = "vtr"
+map <leader>a :TestSuite<CR>
+map <leader>g :TestVisit<CR>
+map <leader>l :TestLast<CR>
+map <leader>s :TestNearest<CR>
+map <leader>t :TestFile<CR>
 
 " == Remappings ==
 "
@@ -123,11 +122,11 @@ noremap <leader>q :q<cr>
 noremap <leader>wq :wq<cr>
 noremap <leader>q! :q!<cr>
 
-" Switch windows easier
-nmap <leader><Up> <C-w><Up>
-nmap <leader><Right> <C-w><Right>
-nmap <leader><Left> <C-w><Left>
-nmap <leader><Down> <C-w><Down>
+" Switch windows easier - left home row
+nmap <leader>a <C-w><Up>
+nmap <leader>o <C-w><Down>
+nmap <leader>e <C-w><Left>
+nmap <leader>u <C-w><Right>
 
 " My rubocop-git script to compare with develop
 nmap <leader>rgd :!rubocop-git-vs-develop<CR>
