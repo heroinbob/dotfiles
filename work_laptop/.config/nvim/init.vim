@@ -149,6 +149,16 @@ nmap <F2> :set hlsearch!<CR>
 nmap <leader>kr :VtrKillRunner<CR>
 nmap <leader>or :VtrOpenRunner({'orientation': 'h', 'percentage': 30})<CR>
 
+" Directional stuff!
+nmap e <Left>
+nmap u <Right>
+nmap h <Up>
+nmap t <Down>
+vmap e <Left>
+vmap u <Right>
+vmap h <Up>
+vmap t <Down>
+
 
 " CtrlP
 let g:in_git = substitute(system('git rev-parse --show-toplevel 2>/dev/null'), "\n*$", '', '')
