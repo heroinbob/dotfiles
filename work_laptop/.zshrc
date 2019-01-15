@@ -35,14 +35,16 @@ export RBENV_PATH="$CELLAR_PATH/rbenv/1.1.1/bin" # rbenv executable path
 export QT5_PATH="$CELLAR_PATH/qt5/5.3.2/bin"     # qt5 executable path
 export NODE_PATH=/usr/local/lib/node_modules     # Node modules path
 export GIT_PATH="$CELLAR_PATH/git/2.15.1/bin"
-export PY_PATH=/usr/local/opt/python/libexec/bin
+# Removed during EB env attempt to fix
+#export PY_PATH=/usr/local/opt/python/libexec/bin
 export MY_SCRIPTS_PATH="$HOME/scripts"           # my custom scripts
 #export SSL_CERT_FILE=/usr/local/etc/openssl/cert.pem
 
 # Include your github api token here!
 export HOMEBREW_GITHUB_API_TOKEN=<INSERT_TOKEN_HERE>
 
-export PATH="$PY_PATH:$MY_SCRIPTS_PATH:$RBENV_PATH:$QT5_PATH:$GIT_PATH/bin:/usr/local/bin:$PATH"
+#export PATH="$PY_PATH:$MY_SCRIPTS_PATH:$RBENV_PATH:$QT5_PATH:$GIT_PATH/bin:/usr/local/bin:$PATH"
+export PATH="$MY_SCRIPTS_PATH:$RBENV_PATH:$QT5_PATH:$GIT_PATH/bin:/usr/local/bin:$PATH"
 
 # RBENV bootstrapping
 if which rbenv > /dev/null
@@ -67,4 +69,10 @@ export EDITOR=nvim
 export BAY_HOME=/Users/jeffm/eventbrite/docker-dev
 
 # then make ZSH load virtualenvwrapper automatically
-source /Users/jeffm/Library/Python/2.7/bin/virtualenvwrapper.sh
+#source /Users/jeffm/Library/Python/2.7/bin/virtualenvwrapper.sh
+
+#
+export EB_WHEELHOUSE_HOST="jenkins.evbhome.com"
+export EB_WHEELHOUSE_URL="https://$EB_WHEELHOUSE_HOST/view/wheelhouses/job/wheelhouse-index/lastSuccessfulBuild/artifact/16.04/index.html"
+
+#alias eb-pip2-install="python2 -m pip install -U --find-links $EB_WHEELHOUSE_URL --trusted-host $EB_WHEELHOUSE_HOST"
