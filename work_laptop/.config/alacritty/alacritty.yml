@@ -401,8 +401,8 @@ shell:
 #   - ~AppKeypad
 #   - AppKeypad
 key_bindings:
-  - { key: v,        mods: Command, action: Paste                        }
-  - { key: c,        mods: Command, action: Copy                         }
+  - { key: V,        mods: Command, action: Paste                        }
+  - { key: C,        mods: Command, action: Copy                         }
   - { key: Paste,                   action: Paste                        }
   - { key: Copy,                    action: Copy                         }
   - { key: H,        mods: Command, action: Hide                         }
@@ -458,8 +458,10 @@ key_bindings:
   - { key: F6,                      chars: "\x1b[17~"                    }
   - { key: F7,                      chars: "\x1b[18~"                    }
   - { key: F8,                      chars: "\x1b[19~"                    }
-  - { key: F9,                      chars: "\x1b[20~"                    }
-  - { key: F10,                     chars: "\x1b[21~"                    }
+  #- { key: F9,                      chars: "\x1b[20~"                    }
+  #- { key: F10,                     chars: "\x1b[21~"                    }
+  - { key: F9,                      action: Copy                         }
+  - { key: F10,                     action: Paste                        }
   - { key: F11,                     chars: "\x1b[23~"                    }
   - { key: F12,                     chars: "\x1b[24~"                    }
   - { key: F1,       mods: Shift,   chars: "\x1b[1;2P"                   }
