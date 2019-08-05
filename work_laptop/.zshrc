@@ -41,7 +41,7 @@ export MY_SCRIPTS_PATH="$HOME/scripts"           # my custom scripts
 #export SSL_CERT_FILE=/usr/local/etc/openssl/cert.pem
 
 # Include your github api token here!
-export HOMEBREW_GITHUB_API_TOKEN=<INSERT_TOKEN_HERE>
+export HOMEBREW_GITHUB_API_TOKEN=<YOUR TOKEN>
 
 #export PATH="$PY_PATH:$MY_SCRIPTS_PATH:$RBENV_PATH:$QT5_PATH:$GIT_PATH/bin:/usr/local/bin:$PATH"
 export PATH="$MY_SCRIPTS_PATH:$RBENV_PATH:$QT5_PATH:$GIT_PATH/bin:/usr/local/bin:$PATH"
@@ -76,3 +76,7 @@ export EB_WHEELHOUSE_HOST="jenkins.evbhome.com"
 export EB_WHEELHOUSE_URL="https://$EB_WHEELHOUSE_HOST/view/wheelhouses/job/wheelhouse-index/lastSuccessfulBuild/artifact/16.04/index.html"
 
 #alias eb-pip2-install="python2 -m pip install -U --find-links $EB_WHEELHOUSE_URL --trusted-host $EB_WHEELHOUSE_HOST"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

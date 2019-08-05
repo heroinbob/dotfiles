@@ -46,6 +46,7 @@ call vundle#end()
 "===========================
 " Other Settings           "
 "===========================
+set guicursor=  " Reset cursor settings
 set ttyfast
 set t_Co=256
 let base16colorspace=256
@@ -149,15 +150,15 @@ nmap <F2> :set hlsearch!<CR>
 nmap <leader>kr :VtrKillRunner<CR>
 nmap <leader>or :VtrOpenRunner({'orientation': 'h', 'percentage': 30})<CR>
 
-" Directional stuff!
-nmap e <Left>
-nmap u <Right>
-nmap h <Up>
-nmap t <Down>
-vmap e <Left>
-vmap u <Right>
-vmap h <Up>
-vmap t <Down>
+" Directional stuff!!
+" I use h=left, t=right j=down, k=up
+nmap t <Right>
+vmap t <Right>
+
+" Let's enable copy past via commands using pbcopy/paste
+nmap <F3> :.w !pbcopy<CR>
+nmap <F4> :r !pbpaste<CR>
+imap <F4> <ESC>:r !pbpaste<CR>
 
 
 " CtrlP
