@@ -43,3 +43,13 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Set the color scheme for everything.
 base16_atelier-lakeside
+
+# Only necessary if you use dnsmasq for custom domains like test, dev, etc.
+
+#
+# This gives us the ability to host ".test" domain locally
+#
+brew install dnsmasq
+cp dnsmasq.conf /usr/local/etc/
+echo "nameserver 127.0.0.1" > /etc/resolver/test
+sudo brew services start dnsmasq
