@@ -15,6 +15,7 @@ plugins=(
     bundler
     docker
     git
+    git-prompt
     gem
     git-hubflow
     rails
@@ -53,8 +54,3 @@ alias ll='ls -l'
 
 # I use vim. There. I said it.
 export EDITOR=vim
-
-# If you execute "locale" and you don't see en_US.UTF-8 then tmux will NOT
-# support multibyte utf-8 chars. I spent a solid two hours downgrading things
-# and removing settings, all kinds of crazy stuff.
-#export LC_ALL=en_US.UTF-8

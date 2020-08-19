@@ -52,3 +52,8 @@ brew install dnsmasq
 cp dnsmasq.conf /usr/local/etc/
 echo "nameserver 127.0.0.1" > /etc/resolver/test
 sudo brew services start dnsmasq
+
+# This will update ruby-build because the binary itself will be horribly out of
+# date!
+mkdir -p "$(rbenv root)"/plugins
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
