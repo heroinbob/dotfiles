@@ -6,6 +6,7 @@
 #
 
 sudo apt install fonts-powerline \
+    hub \
 	kitty \
 	rbenv \
 	silversearcher-ag \
