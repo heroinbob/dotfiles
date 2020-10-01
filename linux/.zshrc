@@ -54,3 +54,25 @@ alias ll='ls -l'
 
 # I use vim. There. I said it.
 export EDITOR=vim
+
+#
+# ================= My fun lil functions ==================================
+#
+function refresh_branch {
+    git fetch origin
+    git checkout $1
+    git pull
+}
+
+function refresh_develop {
+    refresh_branch develop
+}
+
+function refresh_master {
+    refresh_branch master
+}
+
+function refresh_main_branches {
+    refresh_develop
+    refresh_master
+}

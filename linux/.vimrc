@@ -164,6 +164,9 @@ imap <F4> <ESC>:r !pbpaste<CR>
 " Format on save so we don't forget
 let g:mix_format_on_save = 1
 
+" Enable eslint in neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+
 
 " CtrlP
 let g:in_git = substitute(system('git rev-parse --show-toplevel 2>/dev/null'), "\n*$", '', '')

@@ -1,5 +1,5 @@
+# Este es el archivo de configuración de Git por usuario.
 [user]
+# Por favor, adapta y descomenta las siguientes líneas:
 	name = Jeff McKenzie
-	email = jeff@veeps.com
-[pull]
-	rebase = true
+	email = mackenzie.luceononuro@gmail.com
