@@ -70,11 +70,11 @@ function refresh_develop {
     refresh_branch develop
 }
 
-function refresh_master {
-    refresh_branch master
+function refresh_main {
+    refresh_branch main
 }
 
 function refresh_main_branches {
     refresh_develop
-    refresh_master
+    refresh_main
 }

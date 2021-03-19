@@ -18,30 +18,31 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " My Custom Plugins Below....
+Plugin 'dense-analysis/ale' " Asynchronous Lint Engine
+
 Plugin 'AndrewRadev/splitjoin.vim' " Commands for changing from single to multi line statements
-Plugin 'benekastah/neomake' " Asynchronous :make support, for syntax, rubocop, etc
 Plugin 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 Plugin 'chriskempson/base16-vim' " 16 color syntax highlighting themes
 Plugin 'christoomey/vim-tmux-runner' " Send commands from vim to tmux
 Plugin 'elixir-lang/vim-elixir' " Elixir support
-Plugin 'gabrielelana/vim-markdown' " uhhhhh, markdown, duh!
+Plugin 'iamcco/markdown-preview.nvim'
 Plugin 'inside/vim-grep-operator' " Visual and motion selection for grep
 Plugin 'janko-m/vim-test' " Vim wrapper for test running (RSpec, Minitest, etc)
 Plugin 'kana/vim-textobj-user' " Create text objects easily (see below for ruby)
-Plugin 'kchmck/vim-coffee-script' " CoffeeScript support
 Plugin 'kien/ctrlp.vim' " Super fast file finding
 Plugin 'lokaltog/vim-easymotion' " Targeted content navigation
+Plugin 'maxmellon/vim-jsx-pretty' " React syntax/highlighting/indent
 Plugin 'mhinz/vim-mix-format' " Support for asynchronously running mix format
 Plugin 'nelstrom/vim-textobj-rubyblock' " Easilly select ruby text blocks
 Plugin 'ngmy/vim-rubocop' " Rubocop support
 Plugin 'rking/ag.vim' " Super fast file searching
 Plugin 'scrooloose/nerdtree' " NerdTree!
-Plugin 'scrooloose/syntastic' " Syntax checking and visual output (warnings, errors, etc)
 Plugin 'tpope/vim-endwise' " Automatically add end syntax to if, do, etc.
 Plugin 'tpope/vim-fugitive' " Git commands wrapper for Vim
 Plugin 'tpope/vim-rails' " Vim support for navigating, editing and working w/ Rails
 Plugin 'tpope/vim-surround' " Change, add, delete surrounding chars
 Plugin 'vim-ruby/vim-ruby' " For editing and compiling Ruby within Vim
+Plugin 'yuezk/vim-js' " JS syntax highlighting
 
 call vundle#end()
 
@@ -58,10 +59,10 @@ filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 
-" By default go with 4 spaces for tabs unless otherwise specified.
-set tabstop=4     " Number of spaces to add when tab pressed
-set shiftwidth=4  " Number of spaces to add during indentation
-set softtabstop=4 " Make the delete key treat 4 spaces as a tab
+" By default go with 2 spaces for tabs unless otherwise specified.
+set tabstop=2     " Number of spaces to add when tab pressed
+set shiftwidth=2  " Number of spaces to add during indentation
+set softtabstop=2 " Make the delete key treat 4 spaces as a tab
 set expandtab     " Insert spaces when tab pressed
 
 " Show the line numbers and ruler
@@ -88,18 +89,10 @@ autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 " Strip Trailing Whitespace!
 autocmd BufWritePre * :%s/\s\+$//e
 
-" Run neomake after writing.
-autocmd! BufWritePost * Neomake
-
-"===========================
-" Ruby Specific Settings   "
-"===========================
-autocmd FileType ruby set tabstop=2
-autocmd FileType ruby set shiftwidth=2
-autocmd FileType ruby set softtabstop=2
-
 " Use the patched powerline-fonts
 let g:airline_powerline_fonts = 1
+" Show errors/warnings from ALE on the status line.
+let g:airline#extansions#ale#enabled = 1
 
 " vim-tmux-runner
 let g:VtrClearSequence = "clear\r"
@@ -164,8 +157,11 @@ imap <F4> <ESC>:r !pbpaste<CR>
 " Format on save so we don't forget
 let g:mix_format_on_save = 1
 
-" Enable eslint in neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines'],
+\   'javascript': ['prettier', 'eslint']
+\}
 
 
 " CtrlP
