@@ -40,6 +40,11 @@ ssh-add -K ~/.ssh/id_rsa
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+# Be sure the version is the latest...
+# https://asdf-vm.com/#/core-manage-asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+cd ~/.asdf
+git checkout "$(git describe --abbrev=0 --tags)"
 
 # Set the color scheme for everything.
 base16_atelier-lakeside
@@ -60,3 +65,8 @@ mkdir -p "$(rbenv root)"/plugins
 git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
 
 npm config set prefix '~/.npm-global'
+
+# TODO: Need to sort out how to properly install the plugins...
+echo "Run these after you open a new shell..."
+echo "asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git"
+echo "asdf plugin-add nodejs"
