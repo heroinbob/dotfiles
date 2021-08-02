@@ -17,7 +17,6 @@ plugins=(
     git
     git-prompt
     gem
-    git-hubflow
     mix
     npm
     rails
@@ -31,7 +30,7 @@ source $ZSH/oh-my-zsh.sh
 #
 
 # Non zero state means yes
-export GIT_PS1_SHOWDIRTYSTATE=1
+#export GIT_PS1_SHOWDIRTYSTATE=1
 
 export TERM='xterm-256color'
 
@@ -44,16 +43,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 #
 # PATHS
 #
-# Set NPM global path to a place I have control over (permissions)
-#export NPM_GLOBAL_PATH="$HOME/.npm-global/bin"
 export MY_SCRIPTS_PATH="$HOME/scripts" # my custom scripts
-#export PATH="$MY_SCRIPTS_PATH:$NPM_GLOBAL_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
 export PATH="$MY_SCRIPTS_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
-
-# RBENV bootstrapping
-if which rbenv > /dev/null
-    then eval "$(rbenv init -)"
-fi
 
 # Alias'
 alias ll='ls -l'

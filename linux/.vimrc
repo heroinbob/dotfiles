@@ -92,7 +92,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Use the patched powerline-fonts
 let g:airline_powerline_fonts = 1
 " Show errors/warnings from ALE on the status line.
-let g:airline#extansions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " vim-tmux-runner
 let g:VtrClearSequence = "clear\r"
@@ -159,9 +159,10 @@ let g:mix_format_on_save = 1
 
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines'],
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['prettier', 'eslint'],
-\   'javascriptreact': ['prettier', 'eslint']
+\   'javascriptreact': ['prettier', 'eslint'],
+\   'ruby': ['rubocop']
 \}
 
 
