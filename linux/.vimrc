@@ -20,6 +20,7 @@ Plugin 'VundleVim/Vundle.vim'
 " My Custom Plugins Below....
 Plugin 'dense-analysis/ale' " Asynchronous Lint Engine
 
+Plugin 'alvan/vim-closetag' " Close HTML tags in the configured file types
 Plugin 'AndrewRadev/splitjoin.vim' " Commands for changing from single to multi line statements
 Plugin 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 Plugin 'chriskempson/base16-vim' " 16 color syntax highlighting themes
@@ -85,6 +86,11 @@ let mapleader=","
 autocmd InsertEnter * highlight StatusLine ctermfg=Green
 autocmd InsertLeave * highlight StatusLine ctermfg=Gray
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+" vim-closetag config...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.ex,*.leex,*.erb'
 
 " Strip Trailing Whitespace!
 autocmd BufWritePre * :%s/\s\+$//e
