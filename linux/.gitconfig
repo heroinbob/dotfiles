@@ -2,6 +2,9 @@
 [user]
 # Por favor, adapta y descomenta las siguientes líneas:
 	name = Jeff McKenzie
-	email = mackenzie.luceononuro@gmail.com
+	email = heroinbob@users.noreply.github.com
+  signingkey = 0x373354577725B1FF
 [pull]
 	rebase = true
+[commit]
+	gpgsign = true

@@ -52,6 +52,8 @@ alias ll='ls -l'
 # I use vim. There. I said it.
 export EDITOR=vim
 
+export GPG_TTY=$(tty)
+
 #
 # ================= My fun lil functions ==================================
 #
