@@ -162,6 +162,9 @@ imap <F4> <ESC>:r !pbpaste<CR>
 
 " Format on save so we don't forget
 let g:mix_format_on_save = 1
+" Don't open a new window containing stack trace on error. Show short message
+" in the command bar instead
+let g:mix_format_silent_errors = 1
 
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
