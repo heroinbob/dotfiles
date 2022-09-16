@@ -43,14 +43,16 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 #
 # PATHS
 #
+# Github Container Registry Personal Access Token
+export GHCR_PAT="YOUR_GH_TOKEN"
 export MY_SCRIPTS_PATH="$HOME/scripts" # my custom scripts
 export PATH="$MY_SCRIPTS_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
 
 # Alias'
 alias ll='ls -l'
 alias onstage_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep onstage | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /onstage/bin/onstage_web remote console@${MY_POD_IP}"
-
 alias veeps_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep veeps-web | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /veeps/bin/veeps_web remote console@${MY_POD_IP}"
+alias veeps_export_env="export $(cat .env | xargs)"
 
 # I use vim. There. I said it.
 export EDITOR=vim
