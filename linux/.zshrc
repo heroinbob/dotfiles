@@ -59,6 +59,9 @@ export EDITOR=vim
 
 export GPG_TTY=$(tty)
 
+# This sets all the ENV vars for working on the umbrella app
+export $(cat /home/jeff/umbrella/.env | xargs)
+
 #
 # ================= My fun lil functions ==================================
 #
