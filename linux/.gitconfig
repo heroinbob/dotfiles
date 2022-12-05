@@ -3,7 +3,7 @@
 # Por favor, adapta y descomenta las siguientes líneas:
 	name = Jeff McKenzie
 	email = heroinbob@users.noreply.github.com
-  signingkey = 0x373354577725B1FF
+  signingkey = <SIGNING_KEY>
 [pull]
 	rebase = true
 [commit]

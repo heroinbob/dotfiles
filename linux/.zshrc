@@ -14,6 +14,7 @@ plugins=(
     asdf
     bundler
     docker
+    docker-compose
     git
     git-prompt
     gem
@@ -38,7 +39,9 @@ export TERM='xterm-256color'
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+        source "$BASE16_SHELL/profile_helper.sh"
+
+base16_atelier-lakeside
 
 #
 # PATHS
@@ -53,6 +56,7 @@ alias ll='ls -l'
 alias onstage_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep onstage | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /onstage/bin/onstage_web remote console@${MY_POD_IP}"
 alias veeps_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep veeps-web | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /veeps/bin/veeps_web remote console@${MY_POD_IP}"
 alias veeps_export_env="export $(cat .env | xargs)"
+alias veeps_pods_status="kubectl get pods -o wide | grep veeps"
 
 # I use vim. There. I said it.
 export EDITOR=vim

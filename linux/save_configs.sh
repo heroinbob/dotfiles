@@ -1,10 +1,9 @@
 #!/bin/bash
 #
 # Saves all the configs I care about.
-cp ~/.gitconfig ~/repos/dotfiles/linux
-cp ~/.tmux.conf ~/repos/dotfiles/linux
-cp ~/.zshrc ~/repos/dotfiles/linux
-cp ~/.config/kitty/kitty.conf ~/repos/dotfiles/linux/.config/kitty/kitty.conf
-cp ~/.vimrc ~/repos/dotfiles/linux/.vimrc
-cp ~/.ssh/config ~/repos/dotfiles/linux/.ssh
-cp /etc/dnsmasq.conf ~/repos/dotfiles/linux
+cp ~/.gitconfig ~/repos/heroinbob/dotfiles/linux
+cp ~/.tmux.conf ~/repos/heroinbob/dotfiles/linux
+cp ~/.zshrc ~/repos/heroinbob/dotfiles/linux
+cp ~/.config/kitty/kitty.conf ~/repos/heroinbob/dotfiles/linux/.config/kitty/kitty.conf
+cp ~/.vimrc ~/repos/heroinbob/dotfiles/linux/.vimrc
+cp ~/.ssh/config ~/repos/heroinbob/dotfiles/linux/.ssh

@@ -18,32 +18,41 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " My Custom Plugins Below....
-Plugin 'dense-analysis/ale' " Asynchronous Lint Engine
+" Plugin 'dense-analysis/ale' " Asynchronous Lint Engine
 
-Plugin 'alvan/vim-closetag' " Close HTML tags in the configured file types
+" Generic
 Plugin 'AndrewRadev/splitjoin.vim' " Commands for changing from single to multi line statements
 Plugin 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as air.
 Plugin 'chriskempson/base16-vim' " 16 color syntax highlighting themes
 Plugin 'christoomey/vim-tmux-runner' " Send commands from vim to tmux
-Plugin 'elixir-lang/vim-elixir' " Elixir support
-Plugin 'iamcco/markdown-preview.nvim'
+Plugin 'dense-analysis/ale' " Asynchronous Lint Engine for LOTS of languages.
 Plugin 'inside/vim-grep-operator' " Visual and motion selection for grep
 Plugin 'janko-m/vim-test' " Vim wrapper for test running (RSpec, Minitest, etc)
-Plugin 'kana/vim-textobj-user' " Create text objects easily (see below for ruby)
 Plugin 'kien/ctrlp.vim' " Super fast file finding
 Plugin 'lokaltog/vim-easymotion' " Targeted content navigation
-Plugin 'maxmellon/vim-jsx-pretty' " React syntax/highlighting/indent
-Plugin 'mhinz/vim-mix-format' " Support for asynchronously running mix format
-Plugin 'nelstrom/vim-textobj-rubyblock' " Easilly select ruby text blocks
-Plugin 'ngmy/vim-rubocop' " Rubocop support
 Plugin 'rking/ag.vim' " Super fast file searching
 Plugin 'scrooloose/nerdtree' " NerdTree!
+Plugin 'sheerun/vim-polyglot' " Syntax highlighting LOTS of languages.
 Plugin 'tpope/vim-endwise' " Automatically add end syntax to if, do, etc.
 Plugin 'tpope/vim-fugitive' " Git commands wrapper for Vim
-Plugin 'tpope/vim-rails' " Vim support for navigating, editing and working w/ Rails
 Plugin 'tpope/vim-surround' " Change, add, delete surrounding chars
-Plugin 'vim-ruby/vim-ruby' " For editing and compiling Ruby within Vim
+
+" Elixir
+" Plugin 'elixir-editors/vim-elixir' " Elixir support
+Plugin 'mhinz/vim-mix-format' " Support for asynchronously running mix format
+
+" HTML
+Plugin 'alvan/vim-closetag' " Close HTML tags in the configured file types
+
+" JavaScript
+Plugin 'maxmellon/vim-jsx-pretty' " React syntax/highlighting/indent
 Plugin 'yuezk/vim-js' " JS syntax highlighting
+
+" Ruby
+Plugin 'kana/vim-textobj-user' " Create text objects easily (see below for ruby)
+Plugin 'nelstrom/vim-textobj-rubyblock' " Easilly select ruby text blocks
+Plugin 'ngmy/vim-rubocop' " Rubocop support
+Plugin 'tpope/vim-rails' " Vim support for navigating, editing and working w/ Rails
 
 call vundle#end()
 
@@ -53,7 +62,6 @@ call vundle#end()
 set backspace=indent,eol,start
 set guicursor=  " Reset cursor settings
 set ttyfast
-set t_Co=256
 
 syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
@@ -73,7 +81,6 @@ set relativenumber
 
 " Show the status bar and set up specific colors
 set laststatus=2
-
 set colorcolumn=80
 
 highlight StatusLine ctermfg=Gray
@@ -211,7 +218,10 @@ if executable('matcher')
 endif
 
 " Automatically pick up on what the terminal is configured to use.
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
+" We NEED the base16colorspace to be set to 256 or things will look really
+" funky.
+if exists('$BASE16_THEME')
+      \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+    let base16colorspace=256
+    colorscheme base16-$BASE16_THEME
 endif
