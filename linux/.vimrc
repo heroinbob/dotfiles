@@ -26,6 +26,7 @@ Plugin 'bling/vim-airline' " Lean & mean status/tabline for vim that's light as 
 Plugin 'chriskempson/base16-vim' " 16 color syntax highlighting themes
 Plugin 'christoomey/vim-tmux-runner' " Send commands from vim to tmux
 Plugin 'dense-analysis/ale' " Asynchronous Lint Engine for LOTS of languages.
+Plugin 'github/copilot.vim' " Github Copilot
 Plugin 'inside/vim-grep-operator' " Visual and motion selection for grep
 Plugin 'janko-m/vim-test' " Vim wrapper for test running (RSpec, Minitest, etc)
 Plugin 'kien/ctrlp.vim' " Super fast file finding
@@ -92,7 +93,6 @@ let mapleader=","
 
 autocmd InsertEnter * highlight StatusLine ctermfg=Green
 autocmd InsertLeave * highlight StatusLine ctermfg=Gray
-autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " vim-closetag config...
 " These are the file extensions where this plugin is enabled.
@@ -180,6 +180,10 @@ let g:ale_fixers = {
 \   'javascriptreact': ['prettier', 'eslint'],
 \   'ruby': ['rubocop']
 \}
+" vim-mix-format does a great job and doesn't rely on the LS server that
+" doesn't respect our format rules.
+"\   'elixir': ['mix_format'],
+"\   'eelixir': ['mix_format'],
 
 
 " CtrlP

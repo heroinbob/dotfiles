@@ -13,8 +13,10 @@ ZSH_THEME="robbyrussell"
 plugins=(
     asdf
     bundler
+    direnv
     docker
     docker-compose
+    gh
     git
     git-prompt
     gem
@@ -33,7 +35,7 @@ source $ZSH/oh-my-zsh.sh
 # Non zero state means yes
 #export GIT_PS1_SHOWDIRTYSTATE=1
 
-export TERM='xterm-256color'
+#export TERM='xterm-256color'
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
@@ -48,23 +50,26 @@ base16_atelier-lakeside
 #
 # Github Container Registry Personal Access Token
 export GHCR_PAT="YOUR_GH_TOKEN"
+# API Auth Token - personal access token
+export GH_TOKEN="<VALUE>"
 export MY_SCRIPTS_PATH="$HOME/scripts" # my custom scripts
 export PATH="$MY_SCRIPTS_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
 
 # Alias'
 alias ll='ls -l'
+alias develop_cli="kubectl -n develop exec -it deploy/veeps-web -- /app/bin/veeps_web remote console@{$MY_POD_IP}"
 alias onstage_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep onstage | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /onstage/bin/onstage_web remote console@${MY_POD_IP}"
-alias veeps_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep veeps-web | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /veeps/bin/veeps_web remote console@${MY_POD_IP}"
-alias veeps_export_env="export $(cat .env | xargs)"
+alias product_tracker_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep product-tracker | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- / remote console@${MY_POD_IP}"
+alias veeps_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep veeps-web | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /app/bin/veeps_web remote console@${MY_POD_IP}"
 alias veeps_pods_status="kubectl get pods -o wide | grep veeps"
+alias ss="docker exec -it veeps-scylla-node1 nodetool status"
+alias v=nvim
+alias bless_caddy="sudo setcap cap_net_bind_service=+ep $(which caddy)"
 
 # I use vim. There. I said it.
 export EDITOR=vim
 
 export GPG_TTY=$(tty)
-
-# This sets all the ENV vars for working on the umbrella app
-export $(cat /home/jeff/umbrella/.env | xargs)
 
 #
 # ================= My fun lil functions ==================================
