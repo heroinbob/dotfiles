@@ -53,14 +53,20 @@ export GHCR_PAT="YOUR_GH_TOKEN"
 # API Auth Token - personal access token
 export GH_TOKEN="<VALUE>"
 export MY_SCRIPTS_PATH="$HOME/scripts" # my custom scripts
-export PATH="$MY_SCRIPTS_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
+# The shims path somehow disappeared from my ENV after a system update.
+# This had to be added manually. See https://asdf-vm.com/guide/getting-started.html
+export ASDF_SHIMS_PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
+# export PATH="$MY_SCRIPTS_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
+# The user local paths are in multiple places for some reason so for
+# now do this instead.
+export PATH="$MY_SCRIPTS_PATH:$ASDF_SHIMS_PATH:$PATH"
 
 # Alias'
 alias ll='ls -l'
-alias develop_cli="kubectl -n develop exec -it deploy/veeps-web -- /app/bin/veeps_web remote console@{$MY_POD_IP}"
-alias onstage_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep onstage | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /onstage/bin/onstage_web remote console@${MY_POD_IP}"
+# alias develop_cli="kubectl -n develop exec -it deploy/veeps-web -- /app/bin/veeps_web remote console@{$MY_POD_IP}"
+# alias onstage_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep onstage | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /onstage/bin/onstage_web remote console@${MY_POD_IP}"
 alias product_tracker_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep product-tracker | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- / remote console@${MY_POD_IP}"
-alias veeps_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep veeps-web | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /app/bin/veeps_web remote console@${MY_POD_IP}"
+# alias veeps_cli="kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{\"\\n\"}}{{end}}' | grep veeps-web | xargs shuf -n1 -e | xargs -o -I{} kubectl exec -it {} -- /app/bin/veeps_web remote console@${MY_POD_IP}"
 alias veeps_pods_status="kubectl get pods -o wide | grep veeps"
 alias ss="docker exec -it veeps-scylla-node1 nodetool status"
 alias v=nvim

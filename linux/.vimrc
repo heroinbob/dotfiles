@@ -54,6 +54,7 @@ Plugin 'kana/vim-textobj-user' " Create text objects easily (see below for ruby)
 Plugin 'nelstrom/vim-textobj-rubyblock' " Easilly select ruby text blocks
 Plugin 'ngmy/vim-rubocop' " Rubocop support
 Plugin 'tpope/vim-rails' " Vim support for navigating, editing and working w/ Rails
+Plugin 'olimorris/codecompanion.nvim' " AI Support
 
 call vundle#end()
 
