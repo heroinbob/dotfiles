@@ -8,10 +8,9 @@
 sudo apt install fonts-powerline \
     hub \
 	kitty \
-	rbenv \
 	silversearcher-ag \
 	tmux \
-	vim \
+	nvim \
 	zsh
 
 # Visit https://github.com/JetBrains/JetBrainsMono and download the font.
@@ -29,7 +28,7 @@ cp .zshrc ~/
 cp -R .config ~/
 cp .ssh/config ~/.ssh
 
-# ssh-keygen -t rsa -b 4096 -C "mackenzie.luceononuro@gmail.com"
+# ssh-keygen -t rsa -b 4096 -C "<EMAIL_ADDRESS>"
 chmod 600 ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa.pub
 

@@ -53,13 +53,19 @@ export GHCR_PAT="YOUR_GH_TOKEN"
 # API Auth Token - personal access token
 export GH_TOKEN="<VALUE>"
 export MY_SCRIPTS_PATH="$HOME/scripts" # my custom scripts
+export NPM_BIN_PATH="/home/jeff/.asdf/installs/nodejs/20.9.0/bin"
 # The shims path somehow disappeared from my ENV after a system update.
 # This had to be added manually. See https://asdf-vm.com/guide/getting-started.html
+# NOTE: 12/1/2015 - The ASDF_DATA_DIR is /home/jeff/.asdf
 export ASDF_SHIMS_PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
 # export PATH="$MY_SCRIPTS_PATH:/usr/local/sbin:/usr/local/bin:$PATH"
+
+# This was added when I installed aider
+export MY_LOCAL_BIN="/home/jeff/.local/bin"
+
 # The user local paths are in multiple places for some reason so for
 # now do this instead.
-export PATH="$MY_SCRIPTS_PATH:$ASDF_SHIMS_PATH:$PATH"
+export PATH="$MY_SCRIPTS_PATH:$ASDF_SHIMS_PATH:$NPM_BIN_PATH:$MY_LOCAL_BIN:$PATH"
 
 # Alias'
 alias ll='ls -l'
@@ -98,3 +104,8 @@ function refresh_main_branches {
     refresh_develop
     refresh_main
 }
+
+. "$HOME/.local/bin/env"
+
+# Pi
+export PATH="/home/jeff/.asdf/installs/nodejs/24.13.1/bin:$PATH"
